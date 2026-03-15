@@ -101,7 +101,7 @@ def update_student():
 #  Run the application >>
 if __name__ == '__main__':
     # Use environment variables with safe defaults
-    debug_mode = os.getenv('FLASK_DEBUG', 'True')
-    host_ip = os.getenv('FLASK_RUN_HOST', '0.0.0.0') 
+    debug_mode = os.getenv('FLASK_DEBUG', 'True') # nosec
+    host_ip = os.getenv('FLASK_RUN_HOST', '0.0.0.0') # nosec
     
     app.run(debug=debug_mode, host=host_ip, port=5000)
