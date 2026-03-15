@@ -1,4 +1,5 @@
 # Importing the modules >>
+import os
 from flask import Flask,render_template,request,redirect
 from pymongo import MongoClient
 from bson import ObjectId
@@ -99,4 +100,8 @@ def update_student():
 
 #  Run the application >>
 if __name__ == '__main__':
-    app.run(debug=True,host="0.0.0.0", port=5000)
+    # Use environment variables with safe defaults
+    debug_mode = os.getenv('FLASK_DEBUG', 'True')
+    host_ip = os.getenv('FLASK_RUN_HOST', '0.0.0.0') 
+    
+    app.run(debug=debug_mode, host=host_ip, port=5000)
