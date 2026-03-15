@@ -1,0 +1,35 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  ci-check:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install bandit
+
+    - name: Run Unit Tests
+      run: pytest -v
+
+    - name: Security Scan (Bandit)
+      run: bandit -r . -x ./test_app.py
+
+    - name: Validate Docker Build
+      run: docker build -t flask-mongo-app .
